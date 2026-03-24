@@ -46,9 +46,6 @@ No ads. No accounts. No bloat. Just one thing done right.
 Arabic · English · French · Spanish · German · Chinese · Hindi · Portuguese · Russian · Japanese · Korean · Italian · Turkish · Dutch · Polish · Indonesian · Malay · Persian · Urdu · Bengali · Vietnamese · Thai · Swedish · Greek · Hebrew
 
 ---
-
-## Download
-
 ## Download
 
 Go to the **Releases** section of this repository and open the latest release.
