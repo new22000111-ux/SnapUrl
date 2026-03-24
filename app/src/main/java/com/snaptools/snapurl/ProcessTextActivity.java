@@ -9,7 +9,7 @@ public class ProcessTextActivity extends android.app.Activity {
         CharSequence selected = getIntent()
             .getCharSequenceExtra(android.content.Intent.EXTRA_PROCESS_TEXT);
 
-        boolean readOnly = getIntent()
+        final boolean readOnly = getIntent()
             .getBooleanExtra(android.content.Intent.EXTRA_PROCESS_TEXT_READONLY, false);
 
         if (selected == null || selected.toString().trim().isEmpty()) {
@@ -18,7 +18,10 @@ public class ProcessTextActivity extends android.app.Activity {
         }
 
         final String url = selected.toString().trim();
-        final boolean isReadOnly = readOnly;
+
+        android.widget.Toast.makeText(this,
+            "جاري تقصير الرابط...",
+            android.widget.Toast.LENGTH_SHORT).show();
 
         new android.os.AsyncTask<Void, Void, String>() {
             @Override
@@ -47,7 +50,7 @@ public class ProcessTextActivity extends android.app.Activity {
             @Override
             protected void onPostExecute(String shortUrl) {
                 if (shortUrl != null && shortUrl.startsWith("http")) {
-                    if (!isReadOnly) {
+                    if (!readOnly) {
                         android.content.Intent result = new android.content.Intent();
                         result.putExtra(
                             android.content.Intent.EXTRA_PROCESS_TEXT, shortUrl);
