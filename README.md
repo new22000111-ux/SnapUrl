@@ -4,7 +4,7 @@
 
 **Instant URL shortener — lives in your text selection menu**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Android](https://img.shields.io/badge/Android-6.0%2B-brightgreen.svg)](https://android.com)
 [![Open Source](https://img.shields.io/badge/Open%20Source-%E2%9D%A4-red.svg)](https://github.com)
 
@@ -49,10 +49,17 @@ Arabic · English · French · Spanish · German · Chinese · Hindi · Portugue
 
 ## Download
 
-Go to the [**files**](https://github.com/new22000111-ux/SnapUrl/blob/main/SnapUrl.apk) tab → SnapUrl.apk → **download** `SnapUrl.APK`
+## Download
 
-Enable *Install from unknown sources* in your Android settings before installing.
+Go to the **Releases** section of this repository and open the latest release.
 
+### Steps
+1. Open the **Releases** page on GitHub
+2. Select the latest version of **SnapURL**
+3. Under **Assets**, tap **SnapUrl.apk**
+4. Download and install the APK on your Android device
+
+If Android blocks the installation, enable **Install unknown apps** or **Install from unknown sources** in your device settings, then try again.
 ---
 
 ## Build
