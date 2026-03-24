@@ -49,7 +49,7 @@ Arabic · English · French · Spanish · German · Chinese · Hindi · Portugue
 
 ## Download
 
-Go to the [**files**]() tab → SnapUrl.apk → **Artifacts** → download `SnapUrl.APK`
+Go to the [**files**](https://github.com/new22000111-ux/SnapUrl/blob/main/SnapUrl.apk) tab → SnapUrl.apk → **Artifacts** → download `SnapUrl.APK`
 
 Enable *Install from unknown sources* in your Android settings before installing.
 
