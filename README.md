@@ -49,7 +49,7 @@ Arabic · English · French · Spanish · German · Chinese · Hindi · Portugue
 
 ## Download
 
-Go to the [**files**](https://github.com/new22000111-ux/SnapUrl/blob/main/SnapUrl.apk) tab → SnapUrl.apk → **Artifacts** → download `SnapUrl.APK`
+Go to the [**files**](https://github.com/new22000111-ux/SnapUrl/blob/main/SnapUrl.apk) tab → SnapUrl.apk → **download** `SnapUrl.APK`
 
 Enable *Install from unknown sources* in your Android settings before installing.
 
@@ -102,7 +102,9 @@ SnapURL is the first app in the **SnapTools** series — a collection of lightwe
 
 ## License
 
-MIT — free to use, modify, and distribute.
+The source code of this project is licensed under AGPL-3.0 unless stated otherwise.
+
+The project name, branding, logo, visual identity, content, datasets, and deployed service structure are proprietary and may not be reused, copied, or redistributed without explicit permission.
 
 ---
 
