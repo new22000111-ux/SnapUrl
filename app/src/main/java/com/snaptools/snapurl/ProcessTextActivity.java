@@ -29,7 +29,7 @@ public class ProcessTextActivity extends android.app.Activity {
                 try {
                     String encoded = java.net.URLEncoder.encode(url, "UTF-8");
                     java.net.URL api = new java.net.URL(
-                        "https://tinyurl.com/api-create.php?url=" + encoded
+                        "https://is.gd/create.php?format=simple&url=" + encoded
                     );
                     java.net.HttpURLConnection conn =
                         (java.net.HttpURLConnection) api.openConnection();
