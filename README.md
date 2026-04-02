@@ -88,7 +88,7 @@ SnapURL is the first app in the **SnapTools** series — a collection of lightwe
 | App | Description | Status |
 |-----|-------------|--------|
 | SnapURL | URL shortener via text selection | ✅ Released |
-| SnapSTOP! | It continuously stops unnecessary background processes, periodically clears the cache, and attempts to regulate your phone's temperature and make it run more smoothly. | 🔜 Soon |
+| SnapSTOP! | It continuously stops unnecessary background processes, periodically clears the cache, and attempts to regulate your phone's temperature and make it run more smoothly | 🔜 Soon |
 | SnapTranslate | Translate selected text instantly | 🔜 Soon |
 | SnapQR | Generate QR from selected text | 🔜 Soon |
 | SnapHash | Get MD5/SHA256 of any file | 🔜 Soon |
