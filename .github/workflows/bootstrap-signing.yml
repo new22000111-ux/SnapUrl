@@ -8,6 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -32,7 +35,7 @@ jobs:
             -keyalg RSA \
             -keysize 2048 \
             -validity 10000 \
-            -dname "CN=SnapURL, OU=SnapToolKit, O=SnapToolKit, L=NA, S=NA, C=US"
+            -dname "CN=SnapURL, OU=SnapToolKit, O=SnapToolKit, L=NA, ST=NA, C=US"
 
           base64 -w 0 my-release-key.jks > signing_key_base64.txt
 
@@ -40,13 +43,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
         run: |
-          gh secret set SIGNING_KEY < signing_key_base64.txt
-          gh secret set KEY_ALIAS --body "$KEY_ALIAS"
-          gh secret set KEY_STORE_PASSWORD --body "$KEY_STORE_PASSWORD"
-          gh secret set KEY_PASSWORD --body "$KEY_PASSWORD"
+          gh secret set SIGNING_KEY --repo "$GITHUB_REPOSITORY" < signing_key_base64.txt
+          gh secret set KEY_ALIAS --repo "$GITHUB_REPOSITORY" --body "$KEY_ALIAS"
+          gh secret set KEY_STORE_PASSWORD --repo "$GITHUB_REPOSITORY" --body "$KEY_STORE_PASSWORD"
+          gh secret set KEY_PASSWORD --repo "$GITHUB_REPOSITORY" --body "$KEY_PASSWORD"
 
       - name: Verify secrets exist
         env:
           GH_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
         run: |
-          gh secret list
+          gh secret list --repo "$GITHUB_REPOSITORY"
