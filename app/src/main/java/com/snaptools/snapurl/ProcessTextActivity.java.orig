@@ -6,8 +6,7 @@ public class ProcessTextActivity extends android.app.Activity {
 
     private String getString(String key) {
         String lang = java.util.Locale.getDefault().getLanguage();
-        
-        // Bolt: Cache language strings in a static map to avoid recreating them on every method call.
+
         if (allStrings == null) {
             java.util.HashMap<String, java.util.HashMap<String, String>> all =
                 new java.util.HashMap<>();
