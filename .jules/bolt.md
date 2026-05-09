@@ -1,0 +1,3 @@
+## 2024-05-09 - Gradle D8 Dexer Bug
+**Learning:** This codebase uses an older AGP (7.4.2) that crashes with a `NullPointerException` during dexing (`dexBuilderDebug`) regardless of code changes. Trying to compile even the pristine master branch fails with D8 internal error in `ProcessTextActivity$1.class` (the `AsyncTask`). The problem is inherently tied to the build environment or toolchain version and the use of anonymous inner classes.
+**Action:** Ignore dexing errors (`dexBuilderDebug FAILED`) as long as `compileDebugJavaWithJavac` succeeds and tests/lint pass. Focus purely on Java code optimizations, ensuring `lint` and `test` tasks pass. Do not upgrade AGP/Gradle unprompted as per environment rules.
