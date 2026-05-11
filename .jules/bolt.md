@@ -1,0 +1,3 @@
+## 2024-05-23 - Caching heavily allocated hardcoded localization maps
+**Learning:** Found a highly unusual pattern where localization strings are hardcoded in Java inside a `getString()` method instead of Android's `strings.xml`. This caused 26 HashMaps to be instantiated and populated with 100 string entries on every single `getString()` call (which occurs multiple times per activity launch).
+**Action:** Always look for factory methods or getters that instantiate complex objects on the fly, especially when they only contain static or immutable data. Caching them at the class level (static) prevents significant garbage collection overhead.
