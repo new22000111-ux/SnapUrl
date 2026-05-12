@@ -2,14 +2,20 @@ package com.snaptools.snapurl;
 
 public class ProcessTextActivity extends android.app.Activity {
 
+    // ⚡ Bolt Optimization: Lazily initialize the translation map to prevent
+    // allocating 26 HashMaps (100+ insertions) on every single string lookup.
+    // Impact: Avoids unnecessary memory churn and Garbage Collection delays during UI interaction.
+    private static java.util.HashMap<String, java.util.HashMap<String, String>> sTranslationsMap = null;
+
     private String getString(String key) {
         String lang = java.util.Locale.getDefault().getLanguage();
         
-        java.util.HashMap<String, java.util.HashMap<String, String>> all = 
-            new java.util.HashMap<>();
+        if (sTranslationsMap == null) {
+            java.util.HashMap<String, java.util.HashMap<String, String>> all =
+                new java.util.HashMap<>();
 
-        // Arabic
-        java.util.HashMap<String, String> ar = new java.util.HashMap<>();
+            // Arabic
+            java.util.HashMap<String, String> ar = new java.util.HashMap<>();
         ar.put("shortening", "جاري تقصير الرابط...");
         ar.put("copied",     "تم النسخ: ");
         ar.put("error",      "تعذر تقصير الرابط");
@@ -193,17 +199,20 @@ public class ProcessTextActivity extends android.app.Activity {
         el.put("empty",      "Δεν επιλέχθηκε κείμενο");
         all.put("el", el);
 
-        // Hebrew
-        java.util.HashMap<String, String> he = new java.util.HashMap<>();
-        he.put("shortening", "מקצר קישור...");
-        he.put("copied",     "הועתק: ");
-        he.put("error",      "שגיאה בקיצור הקישור");
-        he.put("empty",      "לא נבחר טקסט");
-        all.put("he", he);
+            // Hebrew
+            java.util.HashMap<String, String> he = new java.util.HashMap<>();
+            he.put("shortening", "מקצר קישור...");
+            he.put("copied",     "הועתק: ");
+            he.put("error",      "שגיאה בקיצור הקישור");
+            he.put("empty",      "לא נבחר טקסט");
+            all.put("he", he);
 
-        java.util.HashMap<String, String> chosen = all.containsKey(lang) 
-            ? all.get(lang) 
-            : all.get("en");
+            sTranslationsMap = all;
+        }
+
+        java.util.HashMap<String, String> chosen = sTranslationsMap.containsKey(lang)
+            ? sTranslationsMap.get(lang)
+            : sTranslationsMap.get("en");
 
         return chosen.get(key);
     }

@@ -1,0 +1,3 @@
+## 2024-05-12 - In-memory translation map allocation bottleneck
+**Learning:** This codebase avoids standard Android `strings.xml` resources for translations to minimize APK size (keeping it under 50KB), using a hardcoded Java HashMap instead. However, this creates a performance anti-pattern where the entire dictionary for 25+ languages (26 HashMaps, 125+ insertions) is allocated on every single string lookup.
+**Action:** When encountering hardcoded translation maps or large static data structures in memory-constrained Android apps, ensure they are initialized lazily and statically cached to prevent unnecessary garbage collection and memory churn during UI interactions.
