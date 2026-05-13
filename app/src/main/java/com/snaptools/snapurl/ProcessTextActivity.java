@@ -2,13 +2,17 @@ package com.snaptools.snapurl;
 
 public class ProcessTextActivity extends android.app.Activity {
 
+    // ⚡ Bolt: Cache translation map to prevent ~26 HashMaps allocation on every getString() call
+    private static java.util.HashMap<String, java.util.HashMap<String, String>> sStringsCache;
+
     private String getString(String key) {
         String lang = java.util.Locale.getDefault().getLanguage();
         
-        java.util.HashMap<String, java.util.HashMap<String, String>> all = 
-            new java.util.HashMap<>();
+        if (sStringsCache == null) {
+            java.util.HashMap<String, java.util.HashMap<String, String>> all =
+                new java.util.HashMap<>();
 
-        // Arabic
+            // Arabic
         java.util.HashMap<String, String> ar = new java.util.HashMap<>();
         ar.put("shortening", "جاري تقصير الرابط...");
         ar.put("copied",     "تم النسخ: ");
@@ -201,9 +205,12 @@ public class ProcessTextActivity extends android.app.Activity {
         he.put("empty",      "לא נבחר טקסט");
         all.put("he", he);
 
-        java.util.HashMap<String, String> chosen = all.containsKey(lang) 
-            ? all.get(lang) 
-            : all.get("en");
+            sStringsCache = all;
+        }
+
+        java.util.HashMap<String, String> chosen = sStringsCache.containsKey(lang)
+            ? sStringsCache.get(lang)
+            : sStringsCache.get("en");
 
         return chosen.get(key);
     }

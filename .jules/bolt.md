@@ -1,0 +1,3 @@
+## 2024-05-24 - Zero-UI String Hardcoding Memory Churn
+**Learning:** To keep APK size extremely small (<50KB), this app avoids `strings.xml` and hardcodes 25+ language translations in HashMaps within Java code. However, placing these allocations inside a utility function (`getString()`) causes ~26 HashMaps and 100+ Map.Entry objects to be allocated and immediately garbage collected on *every* call, creating severe memory churn and slowing down execution.
+**Action:** Always check if hardcoded object structures (like translations, configurations) are allocated inside local method scope. If so, move them to static fields to allocate them only once per class load.
