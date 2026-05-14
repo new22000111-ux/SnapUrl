@@ -2,9 +2,16 @@ package com.snaptools.snapurl;
 
 public class ProcessTextActivity extends android.app.Activity {
 
+    private static String cachedLang = null;
+    private static java.util.HashMap<String, String> cachedStrings = null;
+
     private String getString(String key) {
         String lang = java.util.Locale.getDefault().getLanguage();
         
+        if (lang.equals(cachedLang) && cachedStrings != null) {
+            return cachedStrings.get(key);
+        }
+
         java.util.HashMap<String, java.util.HashMap<String, String>> all = 
             new java.util.HashMap<>();
 
@@ -204,6 +211,9 @@ public class ProcessTextActivity extends android.app.Activity {
         java.util.HashMap<String, String> chosen = all.containsKey(lang) 
             ? all.get(lang) 
             : all.get("en");
+
+        cachedLang = lang;
+        cachedStrings = chosen;
 
         return chosen.get(key);
     }
