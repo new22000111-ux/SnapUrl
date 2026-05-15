@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -15,6 +16,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class ProcessTextActivity extends Activity {
+
+    private static final String TAG = "SnapURL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,18 +51,25 @@ public class ProcessTextActivity extends Activity {
                     );
                     HttpURLConnection conn =
                         (HttpURLConnection) api.openConnection();
-                    conn.setConnectTimeout(6000);
-                    conn.setReadTimeout(6000);
-                    BufferedReader reader = new BufferedReader(
-                        new InputStreamReader(conn.getInputStream())
-                    );
-                    String result = reader.readLine();
-                    reader.close();
+                    conn.setConnectTimeout(8000); // Slightly more generous timeout
+                    conn.setReadTimeout(8000);
+                    conn.setRequestProperty("User-Agent", "SnapURL/1.0");
+                    
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == HttpURLConnection.HTTP_OK) {
+                        BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(conn.getInputStream())
+                        );
+                        String result = reader.readLine();
+                        reader.close();
+                        conn.disconnect();
+                        return result;
+                    }
                     conn.disconnect();
-                    return result;
                 } catch (Exception e) {
-                    return null;
+                    Log.e(TAG, "Error shortening URL", e);
                 }
+                return null;
             }
 
             @Override
@@ -87,7 +97,7 @@ public class ProcessTextActivity extends Activity {
                     Toast.makeText(
                         ProcessTextActivity.this,
                         getString(R.string.error),
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_LONG // Changed to LONG for better readability
                     ).show();
                 }
                 finish();
