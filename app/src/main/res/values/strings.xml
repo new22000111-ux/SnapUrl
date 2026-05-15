@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SnapURL Shortener</string>
+    <string name="app_name">Shorter</string>
     <string name="app_description">Instant URL shortening service for your text selection menu.</string>
     <string name="shortening">Shortening your URL...</string>
     <string name="copied">Shortened URL copied to clipboard: </string>
