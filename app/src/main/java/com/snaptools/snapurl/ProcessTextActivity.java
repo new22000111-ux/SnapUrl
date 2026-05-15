@@ -2,12 +2,12 @@ package com.snaptools.snapurl;
 
 public class ProcessTextActivity extends android.app.Activity {
 
-    private String getString(String key) {
-        String lang = java.util.Locale.getDefault().getLanguage();
-        
-        java.util.HashMap<String, java.util.HashMap<String, String>> all = 
-            new java.util.HashMap<>();
+    // ⚡ Bolt optimization: Hoist the localization maps to a static final block
+    // This prevents re-allocating 26 HashMaps every time getString() is called.
+    private static final java.util.HashMap<String, java.util.HashMap<String, String>> all =
+        new java.util.HashMap<>();
 
+    static {
         // Arabic
         java.util.HashMap<String, String> ar = new java.util.HashMap<>();
         ar.put("shortening", "جاري تقصير الرابط...");
@@ -200,6 +200,10 @@ public class ProcessTextActivity extends android.app.Activity {
         he.put("error",      "שגיאה בקיצור הקישור");
         he.put("empty",      "לא נבחר טקסט");
         all.put("he", he);
+    }
+
+    private String getString(String key) {
+        String lang = java.util.Locale.getDefault().getLanguage();
 
         java.util.HashMap<String, String> chosen = all.containsKey(lang) 
             ? all.get(lang) 

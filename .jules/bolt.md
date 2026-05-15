@@ -1,0 +1,3 @@
+## 2024-05-24 - Static Map Initialization vs Inline HashMap creation
+**Learning:** In an architecture that aggressively minimizes APK size by omitting `strings.xml` and standard resources, localizations are hardcoded as Java structures (`HashMap`). Instantiating large multi-level HashMaps on every single UI/Utility access (like `getString`) causes severe garbage collection pressure and unnecessary re-allocations on each function call.
+**Action:** Always verify if hardcoded static reference structures (like localization maps) can be hoisted out of instance methods to `static final` initializers to prevent redundant memory allocation.
