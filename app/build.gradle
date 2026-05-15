@@ -4,7 +4,7 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.snaptools.snapurl"
+        applicationId "com.snaptools.shorter"
         minSdkVersion 23
         targetSdkVersion 33
         versionCode 1
