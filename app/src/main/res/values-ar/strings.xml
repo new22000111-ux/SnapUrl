@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortening">جاري تقصير الرابط...</string>
+    <string name="copied">تم النسخ: </string>
+    <string name="error">تعذر تقصير الرابط</string>
+    <string name="empty">لا يوجد نص محدد</string>
+</resources>

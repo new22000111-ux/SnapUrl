@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortening">Acortando enlace...</string>
+    <string name="copied">Copiado: </string>
+    <string name="error">Error al acortar el enlace</string>
+    <string name="empty">No hay texto seleccionado</string>
+</resources>

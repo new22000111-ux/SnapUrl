@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SnapURL</string>
+    <string name="shortening">Shortening URL...</string>
+    <string name="copied">Copied: </string>
+    <string name="error">Failed to shorten URL</string>
+    <string name="empty">No text selected</string>
 </resources>

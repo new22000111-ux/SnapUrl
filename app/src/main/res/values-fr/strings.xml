@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortening">Raccourcissement en cours...</string>
+    <string name="copied">Copié : </string>
+    <string name="error">Échec du raccourcissement</string>
+    <string name="empty">Aucun texte sélectionné</string>
+</resources>
