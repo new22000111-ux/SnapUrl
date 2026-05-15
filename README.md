@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ SnapURL
+# ⚡ Shorter
 
 **Instant URL shortener — lives in your text selection menu**
 
@@ -14,11 +14,11 @@
 
 ---
 
-## What is SnapURL?
+## What is Shorter?
 
-SnapURL is a **zero-UI** Android utility. It doesn't appear on your home screen — it lives silently inside your text selection menu, exactly like Copy and Paste.
+Shorter is a **zero-UI** Android utility. It doesn't appear on your home screen — it lives silently inside your text selection menu, exactly like Copy and Paste.
 
-Select any URL → tap **SnapURL** → done.
+Select any URL → tap **Shorter** → done.
 
 No ads. No accounts. No bloat. Just one thing done right.
 
@@ -28,7 +28,7 @@ No ads. No accounts. No bloat. Just one thing done right.
 
 1. Select any URL in **any app**
 2. Tap the `···` menu in the text selection bar
-3. Tap **SnapURL**
+3. Tap **Shorter**
 4. The URL is instantly replaced with a short link
 5. If replacement isn't possible, it's copied to clipboard automatically
 
@@ -52,8 +52,8 @@ Go to the **Releases** section of this repository and open the latest release.
 
 ### Steps
 1. Open the **Releases** page on GitHub
-2. Select the latest version of **SnapURL**
-3. Under **Assets**, tap **SnapUrl.apk**
+2. Select the latest version of **Shorter**
+3. Under **Assets**, tap **Shorter.apk**
 4. Download and install the APK on your Android device
 
 If Android blocks the installation, enable **Install unknown apps** or **Install from unknown sources** in your device settings, then try again.
@@ -72,8 +72,8 @@ If Android blocks the installation, enable **Install unknown apps** or **Install
 
 ### Local build
 ```bash
-git clone https://github.com/your-username/SnapURL.git
-cd SnapURL
+git clone https://github.com/your-username/Shorter.git
+cd Shorter
 gradle assembleDebug
 ```
 
@@ -83,11 +83,11 @@ APK will be at `app/build/outputs/apk/debug/app-debug.apk`
 
 ## Part of the SnapTools Series
 
-SnapURL is the first app in the **SnapTools** series — a collection of lightweight system-level utilities that work silently in the background, no UI, no bloat.
+Shorter is the first app in the **SnapTools** series — a collection of lightweight system-level utilities that work silently in the background, no UI, no bloat.
 
 | App | Description | Status |
 |-----|-------------|--------|
-| SnapURL | URL shortener via text selection | ✅ Released |
+| Shorter | URL shortener via text selection | ✅ Released |
 | SnapSTOP! | It continuously stops unnecessary background processes, periodically clears the cache, and attempts to regulate your phone's temperature and make it run more smoothly | 🔜 Soon |
 | SnapTranslate | Translate selected text instantly | 🔜 Soon |
 | SnapQR | Generate QR from selected text | 🔜 Soon |
