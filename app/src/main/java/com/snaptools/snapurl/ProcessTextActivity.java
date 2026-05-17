@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -44,13 +46,13 @@ public class ProcessTextActivity extends Activity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... v) {
+                HttpURLConnection conn = null;
                 try {
                     String encoded = URLEncoder.encode(url, "UTF-8");
                     URL api = new URL(
                         "https://is.gd/create.php?format=simple&url=" + encoded
                     );
-                    HttpURLConnection conn =
-                        (HttpURLConnection) api.openConnection();
+                    conn = (HttpURLConnection) api.openConnection();
                     conn.setConnectTimeout(8000); // Slightly more generous timeout
                     conn.setReadTimeout(8000);
                     conn.setRequestProperty("User-Agent", "SnapURL/1.0");
@@ -62,12 +64,17 @@ public class ProcessTextActivity extends Activity {
                         );
                         String result = reader.readLine();
                         reader.close();
-                        conn.disconnect();
                         return result;
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
+                } finally {
+                    if (conn != null) {
+                        // ⚡ Bolt Performance Optimization:
+                        // Always disconnect the connection in a finally block to ensure
+                        // resources are consistently freed even if an exception occurs.
+                        conn.disconnect();
+                    }
                 }
                 return null;
             }
