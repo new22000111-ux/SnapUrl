@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import com.snaptools.shorter.R;
+
 public class ProcessTextActivity extends Activity {
 
     private static final String TAG = "SnapURL";
@@ -44,30 +46,39 @@ public class ProcessTextActivity extends Activity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... v) {
+                HttpURLConnection conn = null;
+                BufferedReader reader = null;
                 try {
                     String encoded = URLEncoder.encode(url, "UTF-8");
                     URL api = new URL(
                         "https://is.gd/create.php?format=simple&url=" + encoded
                     );
-                    HttpURLConnection conn =
-                        (HttpURLConnection) api.openConnection();
+                    conn = (HttpURLConnection) api.openConnection();
                     conn.setConnectTimeout(8000); // Slightly more generous timeout
                     conn.setReadTimeout(8000);
                     conn.setRequestProperty("User-Agent", "SnapURL/1.0");
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
+                        reader = new BufferedReader(
                             new InputStreamReader(conn.getInputStream())
                         );
                         String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
                         return result;
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
+                } finally {
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error closing reader", e);
+                        }
+                    }
+                    if (conn != null) {
+                        conn.disconnect();
+                    }
                 }
                 return null;
             }
