@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_description">Instant URL shortening service for your text selection menu.</string>
+    <string name="app_name">Shorter</string>
+    <string name="copied">Shortened URL copied to clipboard: </string>
+    <string name="empty">No text selected to shorten.</string>
+    <string name="error">Unable to shorten URL. Please check your connection.</string>
+    <string name="shortening">Shortening your URL...</string>
+</resources>

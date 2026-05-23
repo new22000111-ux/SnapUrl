@@ -1,0 +1,8 @@
+<dependencies>
+  <compile
+      roots="/app@@:app::debug">
+    <dependency
+        name="/app@@:app::debug"
+        simpleName=":"/>
+  </compile>
+</dependencies>

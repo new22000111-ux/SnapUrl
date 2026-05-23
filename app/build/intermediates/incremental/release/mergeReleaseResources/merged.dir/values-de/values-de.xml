@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="copied">Kopiert: </string>
+    <string name="empty">Kein Text ausgewählt</string>
+    <string name="error">URL konnte nicht gekürzt werden</string>
+    <string name="shortening">URL wird gekürzt...</string>
+</resources>

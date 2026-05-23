@@ -1,0 +1,8 @@
+com.snaptools.shorter.app-pngs-0 /app/app/build/generated/res/pngs/release
+com.snaptools.shorter.app-resValues-1 /app/app/build/generated/res/resValues/release
+com.snaptools.shorter.app-rs-2 /app/app/build/generated/res/rs/release
+com.snaptools.shorter.app-mergeReleaseResources-3 /app/app/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+com.snaptools.shorter.app-mergeReleaseResources-4 /app/app/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+com.snaptools.shorter.app-merged_res-5 /app/app/build/intermediates/merged_res/release
+com.snaptools.shorter.app-main-6 /app/app/src/main/res
+com.snaptools.shorter.app-release-7 /app/app/src/release/res
