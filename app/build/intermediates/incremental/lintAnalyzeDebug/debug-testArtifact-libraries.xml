@@ -1,0 +1,6 @@
+<libraries>
+  <library
+      name="/app@@:app::debug"
+      jars="/app/app/build/intermediates/compile_app_classes_jar/debug/classes.jar"
+      resolved="::"/>
+</libraries>

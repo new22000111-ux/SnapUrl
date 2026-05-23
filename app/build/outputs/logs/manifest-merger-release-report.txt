@@ -1,0 +1,73 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+	package
+		ADDED from /app/app/src/main/AndroidManifest.xml:3:5-36
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+		ADDED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+		ADDED from /app/app/src/main/AndroidManifest.xml:2:1-27:12
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /app/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /app/app/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /app/app/src/main/AndroidManifest.xml:5:22-64
+application
+ADDED from /app/app/src/main/AndroidManifest.xml:7:5-26:19
+	android:label
+		ADDED from /app/app/src/main/AndroidManifest.xml:8:9-41
+	android:icon
+		ADDED from /app/app/src/main/AndroidManifest.xml:9:9-45
+	android:description
+		ADDED from /app/app/src/main/AndroidManifest.xml:10:9-54
+activity#com.snaptools.shorter.ProcessTextActivity
+ADDED from /app/app/src/main/AndroidManifest.xml:12:9-24:20
+	android:label
+		ADDED from /app/app/src/main/AndroidManifest.xml:14:13-45
+	android:exported
+		ADDED from /app/app/src/main/AndroidManifest.xml:15:13-36
+	android:theme
+		ADDED from /app/app/src/main/AndroidManifest.xml:16:13-72
+	android:name
+		ADDED from /app/app/src/main/AndroidManifest.xml:13:13-48
+intent-filter#action:name:android.intent.action.PROCESS_TEXT+category:name:android.intent.category.DEFAULT+data:mimeType:text/plain
+ADDED from /app/app/src/main/AndroidManifest.xml:18:13-22:29
+action#android.intent.action.PROCESS_TEXT
+ADDED from /app/app/src/main/AndroidManifest.xml:19:17-77
+	android:name
+		ADDED from /app/app/src/main/AndroidManifest.xml:19:25-74
+category#android.intent.category.DEFAULT
+ADDED from /app/app/src/main/AndroidManifest.xml:20:17-76
+	android:name
+		ADDED from /app/app/src/main/AndroidManifest.xml:20:27-73
+data
+ADDED from /app/app/src/main/AndroidManifest.xml:21:17-55
+	android:mimeType
+		ADDED from /app/app/src/main/AndroidManifest.xml:21:23-52
+uses-sdk
+INJECTED from /app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /app/app/src/main/AndroidManifest.xml
+INJECTED from /app/app/src/main/AndroidManifest.xml
+INJECTED from /app/app/src/main/AndroidManifest.xml
+INJECTED from /app/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+		ADDED from /app/app/src/main/AndroidManifest.xml
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /app/app/src/main/AndroidManifest.xml
+		ADDED from /app/app/src/main/AndroidManifest.xml
+		INJECTED from /app/app/src/main/AndroidManifest.xml

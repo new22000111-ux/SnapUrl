@@ -1,0 +1,114 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.snaptools.shorter.app-merged_res-5:/values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "3,2,5,7,6,4",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "100,55,267,425,338,205",
+                        "endColumns": "104,44,70,62,86,61",
+                        "endOffsets": "200,95,333,483,420,262"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,160,205,276,339,426",
+                        "endColumns": "104,44,70,62,86,61",
+                        "endOffsets": "155,200,271,334,421,483"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.snaptools.shorter.app-merged_res-5:/values-es_values-es.arsc.flat",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values-es/strings.xml",
+                    "from": {
+                        "startLines": "3,5,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "114,220,159,55",
+                        "endColumns": "44,59,60,58",
+                        "endOffsets": "154,275,215,109"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,100,160,221",
+                        "endColumns": "44,59,60,58",
+                        "endOffsets": "95,155,216,275"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.snaptools.shorter.app-merged_res-5:/values-de_values-de.arsc.flat",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values-de/strings.xml",
+                    "from": {
+                        "startLines": "3,5,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "114,225,159,55",
+                        "endColumns": "44,54,65,58",
+                        "endOffsets": "154,275,220,109"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,100,155,221",
+                        "endColumns": "44,54,65,58",
+                        "endOffsets": "95,150,216,275"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.snaptools.shorter.app-merged_res-5:/values-fr_values-fr.arsc.flat",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values-fr/strings.xml",
+                    "from": {
+                        "startLines": "3,5,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "123,227,167,55",
+                        "endColumns": "43,57,59,67",
+                        "endOffsets": "162,280,222,118"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,99,157,217",
+                        "endColumns": "43,57,59,67",
+                        "endOffsets": "94,152,212,280"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.snaptools.shorter.app-merged_res-5:/values-ar_values-ar.arsc.flat",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values-ar/strings.xml",
+                    "from": {
+                        "startLines": "3,5,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "115,213,161,55",
+                        "endColumns": "45,49,51,59",
+                        "endOffsets": "156,258,208,110"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,101,151,203",
+                        "endColumns": "45,49,51,59",
+                        "endOffsets": "96,146,198,258"
+                    }
+                }
+            ]
+        }
+    ]
+}

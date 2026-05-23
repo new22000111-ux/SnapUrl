@@ -1,0 +1,54 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.snaptools.shorter"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->/app/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/app/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/app/app/src/main/AndroidManifest.xml:5:5-67
+11-->/app/app/src/main/AndroidManifest.xml:5:22-64
+12
+13    <application
+13-->/app/app/src/main/AndroidManifest.xml:7:5-26:19
+14        android:debuggable="true"
+15        android:description="@string/app_description"
+15-->/app/app/src/main/AndroidManifest.xml:10:9-54
+16        android:extractNativeLibs="false"
+17        android:icon="@drawable/ic_launcher"
+17-->/app/app/src/main/AndroidManifest.xml:9:9-45
+18        android:label="@string/app_name" >
+18-->/app/app/src/main/AndroidManifest.xml:8:9-41
+19        <activity
+19-->/app/app/src/main/AndroidManifest.xml:12:9-24:20
+20            android:name="com.snaptools.shorter.ProcessTextActivity"
+20-->/app/app/src/main/AndroidManifest.xml:13:13-48
+21            android:exported="true"
+21-->/app/app/src/main/AndroidManifest.xml:15:13-36
+22            android:label="@string/app_name"
+22-->/app/app/src/main/AndroidManifest.xml:14:13-45
+23            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+23-->/app/app/src/main/AndroidManifest.xml:16:13-72
+24            <intent-filter>
+24-->/app/app/src/main/AndroidManifest.xml:18:13-22:29
+25                <action android:name="android.intent.action.PROCESS_TEXT" />
+25-->/app/app/src/main/AndroidManifest.xml:19:17-77
+25-->/app/app/src/main/AndroidManifest.xml:19:25-74
+26
+27                <category android:name="android.intent.category.DEFAULT" />
+27-->/app/app/src/main/AndroidManifest.xml:20:17-76
+27-->/app/app/src/main/AndroidManifest.xml:20:27-73
+28
+29                <data android:mimeType="text/plain" />
+29-->/app/app/src/main/AndroidManifest.xml:21:17-55
+29-->/app/app/src/main/AndroidManifest.xml:21:23-52
+30            </intent-filter>
+31        </activity>
+32    </application>
+33
+34</manifest>

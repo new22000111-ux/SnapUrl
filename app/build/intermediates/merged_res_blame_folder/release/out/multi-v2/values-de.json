@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.snaptools.shorter.app-mergeReleaseResources-3:/values-de/values-de.xml",
+            "map": [
+                {
+                    "source": "/app/app/src/main/res/values-de/strings.xml",
+                    "from": {
+                        "startLines": "3,5,4,2",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "114,225,159,55",
+                        "endColumns": "44,54,65,58",
+                        "endOffsets": "154,275,220,109"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,100,155,221",
+                        "endColumns": "44,54,65,58",
+                        "endOffsets": "95,150,216,275"
+                    }
+                }
+            ]
+        }
+    ]
+}
