@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import com.snaptools.shorter.R;
+
 public class ProcessTextActivity extends Activity {
 
     private static final String TAG = "SnapURL";
@@ -44,30 +46,35 @@ public class ProcessTextActivity extends Activity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... v) {
+                HttpURLConnection conn = null;
                 try {
                     String encoded = URLEncoder.encode(url, "UTF-8");
                     URL api = new URL(
                         "https://is.gd/create.php?format=simple&url=" + encoded
                     );
-                    HttpURLConnection conn =
-                        (HttpURLConnection) api.openConnection();
+                    conn = (HttpURLConnection) api.openConnection();
                     conn.setConnectTimeout(8000); // Slightly more generous timeout
                     conn.setReadTimeout(8000);
                     conn.setRequestProperty("User-Agent", "SnapURL/1.0");
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt: Wrapped BufferedReader in try-with-resources for safe cleanup
+                        try (BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(conn.getInputStream()))) {
+                            return reader.readLine();
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
+                } finally {
+                    // ⚡ Bolt: Wrapped HttpURLConnection.disconnect() in finally block to prevent connection leaks
+                    // 💡 What: Ensures HttpURLConnection is properly disconnected even if exceptions occur.
+                    // 🎯 Why: Prevents connection/resource leaks that can degrade app performance over time.
+                    // 📊 Impact: ~100% reduction in connection leak risks on network failures.
+                    if (conn != null) {
+                        conn.disconnect();
+                    }
                 }
                 return null;
             }
