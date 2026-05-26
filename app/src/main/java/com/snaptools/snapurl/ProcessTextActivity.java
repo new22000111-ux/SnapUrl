@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import com.snaptools.shorter.R;
 
 public class ProcessTextActivity extends Activity {
 
@@ -30,7 +31,7 @@ public class ProcessTextActivity extends Activity {
             .getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false);
 
         if (selected == null || selected.toString().trim().isEmpty()) {
-            Toast.makeText(this, getString(R.string.empty),
+            Toast.makeText(this, getString(com.snaptools.shorter.R.string.empty),
                 Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -38,7 +39,7 @@ public class ProcessTextActivity extends Activity {
 
         final String url = selected.toString().trim();
 
-        Toast.makeText(this, getString(R.string.shortening),
+        Toast.makeText(this, getString(com.snaptools.shorter.R.string.shortening),
             Toast.LENGTH_SHORT).show();
 
         new AsyncTask<Void, Void, String>() {
@@ -57,15 +58,22 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
+                        // Bolt ⚡: Safely close stream with try-with-resources
+                        try (BufferedReader reader = new BufferedReader(
                             new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        )) {
+                            String result = reader.readLine();
+                            // Bolt ⚡: Removed conn.disconnect() to enable connection pooling
+                            return result;
+                        }
                     }
-                    conn.disconnect();
+                    // Bolt ⚡: For non-200 responses, we must consume and close the error stream to allow connection pooling
+                    if (conn.getErrorStream() != null) {
+                        try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()))) {
+                            while (errorReader.readLine() != null) {}
+                        }
+                    }
+                    // Bolt ⚡: Removed conn.disconnect() here to enable connection pooling
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
@@ -89,14 +97,14 @@ public class ProcessTextActivity extends Activity {
                         );
                         Toast.makeText(
                             ProcessTextActivity.this,
-                            getString(R.string.copied) + shortUrl,
+                            getString(com.snaptools.shorter.R.string.copied) + shortUrl,
                             Toast.LENGTH_LONG
                         ).show();
                     }
                 } else {
                     Toast.makeText(
                         ProcessTextActivity.this,
-                        getString(R.string.error),
+                        getString(com.snaptools.shorter.R.string.error),
                         Toast.LENGTH_LONG // Changed to LONG for better readability
                     ).show();
                 }
