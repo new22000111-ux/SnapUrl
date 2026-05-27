@@ -1,0 +1,3 @@
+## 2024-05-18 - HttpURLConnection and Connection Pooling in Java
+**Learning:** Calling `HttpURLConnection.disconnect()` closes the underlying socket, which prevents connection pooling and forces subsequent API requests to perform expensive TLS handshakes again. It's better to leave the socket open and properly consume/close the streams using `try-with-resources`.
+**Action:** When using `HttpURLConnection`, avoid calling `disconnect()` if you expect to make subsequent requests to the same server. Instead, ensure the response body (and error stream, if applicable) is fully consumed and the streams are properly closed so the connection can be returned to the pool safely.

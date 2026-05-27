@@ -56,16 +56,22 @@ public class ProcessTextActivity extends Activity {
                     conn.setRequestProperty("User-Agent", "SnapURL/1.0");
                     
                     int responseCode = conn.getResponseCode();
+                    // PERFORMANCE OPTIMIZATION: Do not call conn.disconnect() to allow the underlying socket
+                    // to be reused for connection pooling, avoiding costly TLS handshakes on subsequent requests.
+                    // We consume and close the streams using try-with-resources to safely free resources.
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
+                        try (BufferedReader reader = new BufferedReader(
                             new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        )) {
+                            return reader.readLine();
+                        }
+                    } else if (conn.getErrorStream() != null) {
+                        try (BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(conn.getErrorStream())
+                        )) {
+                            while (reader.readLine() != null) {} // Consume error stream
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
