@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
+
+import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,15 +60,20 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt: Removed conn.disconnect() to allow Java's connection pool to reuse the socket for subsequent requests
+                        // ⚡ Bolt: Wrapped reader in try-with-resources to ensure safe stream closure without manually disconnecting
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // ⚡ Bolt: Read and close the ErrorStream to safely return the connection to the pool without leaking resources
+                        InputStream errorStream = conn.getErrorStream();
+                        if (errorStream != null) {
+                            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream))) {
+                                while (errorReader.readLine() != null) {}
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
