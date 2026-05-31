@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
+
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -57,15 +60,25 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // Optimization: Try-with-resources safely closes InputStream
+                        // Removing conn.disconnect() allows the connection to return to the pool
+                        try (InputStream in = conn.getInputStream();
+                             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // Optimization: Try-with-resources safely drains and closes ErrorStream
+                        // This allows connection reuse on non-200 responses without leaks
+                        InputStream errorStream = conn.getErrorStream();
+                        if (errorStream != null) {
+                            try (InputStream err = errorStream) {
+                                byte[] buffer = new byte[1024];
+                                while (err.read(buffer) != -1) {
+                                    // drain
+                                }
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }

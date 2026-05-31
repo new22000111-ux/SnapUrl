@@ -10,7 +10,7 @@
         android:description="@string/app_description">
 
         <activity
-            android:name=".ProcessTextActivity"
+            android:name="com.snaptools.snapurl.ProcessTextActivity"
             android:label="@string/app_name"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
