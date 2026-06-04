@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,15 +58,37 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
+                        // Optimization: Use try-with-resources to ensure the InputStream is closed safely.
+                        // By closing the stream without calling conn.disconnect(), we return the underlying
+                        // socket to the connection pool for reuse, improving performance.
+                        try (BufferedReader reader = new BufferedReader(
                             new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        )) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // Optimization: To properly release the connection to the pool on non-200 responses,
+                        // we MUST fully consume and close whichever stream is present.
+                        if (conn.getErrorStream() != null) {
+                            try (BufferedReader errorReader = new BufferedReader(
+                                new InputStreamReader(conn.getErrorStream())
+                            )) {
+                                while (errorReader.readLine() != null) {
+                                    // Consume the stream
+                                }
+                            }
+                        } else {
+                            try (BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(conn.getInputStream())
+                            )) {
+                                while (reader.readLine() != null) {
+                                    // Consume the stream
+                                }
+                            } catch (Exception ignored) {
+                                // Stream might not be available
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
