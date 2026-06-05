@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+import com.snaptools.shorter.R;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -57,15 +58,25 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt Performance Optimization:
+                        // Fully consuming and closing InputStream using try-with-resources.
+                        // Removed conn.disconnect() to avoid closing the underlying socket,
+                        // allowing Android's connection pool to safely reuse it for future requests.
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // ⚡ Bolt Performance Optimization:
+                        // Fully consuming and closing ErrorStream (if any) using try-with-resources.
+                        // This prevents resource leaks and guarantees connection return to the pool on non-200 responses.
+                        if (conn.getErrorStream() != null) {
+                            try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getErrorStream()))) {
+                                while (reader.readLine() != null) {
+                                    // Consume error stream entirely
+                                }
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
