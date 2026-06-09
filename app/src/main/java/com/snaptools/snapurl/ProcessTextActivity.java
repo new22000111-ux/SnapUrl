@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,15 +59,23 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // Safely consume and close the InputStream so the connection can be pooled and reused
+                        try (java.io.InputStream in = conn.getInputStream();
+                             BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // Safely consume and close the ErrorStream on non-200 responses to allow connection reuse
+                        java.io.InputStream err = conn.getErrorStream();
+                        if (err != null) {
+                            try (java.io.InputStream eStream = err) {
+                                byte[] buffer = new byte[8192];
+                                while (eStream.read(buffer) != -1) {
+                                    // consume
+                                }
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
