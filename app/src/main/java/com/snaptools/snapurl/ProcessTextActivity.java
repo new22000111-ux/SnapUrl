@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import com.snaptools.shorter.R;
 
 public class ProcessTextActivity extends Activity {
 
@@ -57,15 +58,20 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt: Consume and close InputStream to allow connection pooling (avoids conn.disconnect() which closes socket)
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                            return reader.readLine();
+                        }
+                    } else {
+                        // ⚡ Bolt: Safely consume and close ErrorStream to return connection to the pool
+                        if (conn.getErrorStream() != null) {
+                            try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(conn.getErrorStream()))) {
+                                while (errorReader.readLine() != null) {
+                                    // Fully consume to allow reuse
+                                }
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
