@@ -1,6 +1,7 @@
 package com.snaptools.snapurl;
 
 import android.app.Activity;
+import com.snaptools.shorter.R;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
@@ -57,15 +58,21 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt Optimization: Safely consume and close InputStream to allow connection pooling.
+                        // Removed conn.disconnect() to avoid closing the underlying TCP socket.
+                        try (BufferedReader reader = new BufferedReader(
+                                new InputStreamReader(conn.getInputStream()))) {
+                            return reader.readLine();
+                        }
+                    } else if (conn.getErrorStream() != null) {
+                        // ⚡ Bolt Optimization: Consume ErrorStream on non-200 responses to free the connection pool.
+                        try (BufferedReader errorReader = new BufferedReader(
+                                new InputStreamReader(conn.getErrorStream()))) {
+                            while (errorReader.readLine() != null) {
+                                // Consume completely
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
