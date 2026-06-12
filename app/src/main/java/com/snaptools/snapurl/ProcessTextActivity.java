@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.snaptools.shorter.R;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,15 +59,23 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
-                        return result;
+                        // ⚡ Bolt: Read from InputStream entirely using try-with-resources and DO NOT call disconnect()
+                        // so the underlying socket returns to the HTTP connection pool for reuse.
+                        try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                            String result = reader.readLine();
+                            // consume the rest of the input stream if any
+                            while (reader.readLine() != null) {}
+                            return result;
+                        }
+                    } else {
+                        // ⚡ Bolt: Always consume ErrorStream fully on failure to enable socket reuse
+                        java.io.InputStream errorStream = conn.getErrorStream();
+                        if (errorStream != null) {
+                            try (BufferedReader reader = new BufferedReader(new InputStreamReader(errorStream))) {
+                                while (reader.readLine() != null) {}
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
