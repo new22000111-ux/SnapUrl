@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import com.snaptools.shorter.R;
 import android.widget.Toast;
 
+import java.io.InputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -57,15 +59,24 @@ public class ProcessTextActivity extends Activity {
                     
                     int responseCode = conn.getResponseCode();
                     if (responseCode == HttpURLConnection.HTTP_OK) {
-                        BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(conn.getInputStream())
-                        );
-                        String result = reader.readLine();
-                        reader.close();
-                        conn.disconnect();
+                        String result;
+                        // ⚡ Bolt: Use try-with-resources to safely close stream, fully consume it,
+                        // and avoid conn.disconnect() to allow underlying socket reuse via connection pooling.
+                        try (InputStream is = conn.getInputStream();
+                             BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+                            result = reader.readLine();
+                            while (reader.readLine() != null) { } // Fully consume
+                        }
                         return result;
+                    } else {
+                        // ⚡ Bolt: Safely consume and close ErrorStream
+                        try (InputStream es = conn.getErrorStream()) {
+                            if (es != null) {
+                                byte[] buffer = new byte[1024];
+                                while (es.read(buffer) != -1) { }
+                            }
+                        }
                     }
-                    conn.disconnect();
                 } catch (Exception e) {
                     Log.e(TAG, "Error shortening URL", e);
                 }
