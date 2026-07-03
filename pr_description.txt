@@ -1,0 +1,7 @@
+💡 What: Cached the result of `selected.toString().trim()` in the `url` variable.
+
+🎯 Why: To avoid redundant processing of potentially large intent extras. The string transformation was originally being executed twice: once for the empty check, and again for variable assignment.
+
+📊 Impact: Reduces duplicate object allocations (`String`) and unnecessary string processing, which saves CPU cycles and memory.
+
+🔬 Measurement: Code inspection reveals the string manipulation operations (`toString().trim()`) are now called exactly once per Intent processing instead of twice.
