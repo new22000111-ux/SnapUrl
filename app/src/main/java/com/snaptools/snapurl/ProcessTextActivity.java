@@ -31,14 +31,14 @@ public class ProcessTextActivity extends Activity {
         final boolean readOnly = getIntent()
             .getBooleanExtra(Intent.EXTRA_PROCESS_TEXT_READONLY, false);
 
-        if (selected == null || selected.toString().trim().isEmpty()) {
+        final String url = selected != null ? selected.toString().trim() : "";
+        // Bolt: Avoid redundant data transformations by caching the trimmed string
+        if (url.isEmpty()) {
             Toast.makeText(this, getString(R.string.empty),
                 Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-
-        final String url = selected.toString().trim();
 
         Toast.makeText(this, getString(R.string.shortening),
             Toast.LENGTH_SHORT).show();
